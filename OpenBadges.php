@@ -2,7 +2,7 @@
 /**
  * OpenBadges Extension. Based on Mozilla OpenBadges
  *
- * 
+ *
  *
  * @file
  * @ingroup Extensions
@@ -18,23 +18,40 @@ $wgExtensionCredits['other'][] = array(
 	),
 	'version'  => '0.1',
 	'url' => 'https://www.mediawiki.org/wiki/OpenBadges',
-	'descriptionmsg' => 'openbadges-desc',
+	'descriptionmsg' => 'ob-desc',
 );
-
 
 /* Setup */
 
-$dir = dirname( __FILE__ );
+$dir = __DIR__;
 
 // Register files
-$wgAutoloadClasses['BadgeManager'] = $dir . '/manager/BadgeManager.php';
+$wgAutoloadClasses['BadgeManager'] = $dir . '/manage/BadgeManager.php';
+$wgAutoloadClasses['AddBadge'] = $dir . '/manage/AddBadge.php';
+$wgAutoloadClasses['ViewBadges'] = $dir . '/manage/ViewBadges.php';
 $wgExtensionMessagesFiles['OpenBadges'] = $dir . '/OpenBadges.i18n.php';
 $wgExtensionMessagesFiles['OpenBadgesAlias'] = $dir . '/OpenBadges.i18n.alias.php';
 
 // Register special pages
 $wgSpecialPages['BadgeManager'] = 'BadgeManager';
 $wgSpecialPageGroups['BadgeManager'] = 'other';
+$wgSpecialPages['AddBadge'] = 'AddBadge';
+$wgSpecialPageGroups['AddBadge'] = 'other';
+$wgSpecialPages['ViewBadges'] = 'ViewBadges';
+$wgSpecialPageGroups['ViewBadges'] = 'other';
 
+
+// Register hooks
+$wgHooks['LoadExtensionSchemaUpdates'][] = 'createTable';
+
+// Function to hook up our tables
+function createTable( DatabaseUpdater $dbU ) {
+        $dbU->addExtensionTable( 'openbadges_assertion', __DIR__ .
+                                 '/OpenBadgesAssertion.sql', true );
+        $dbU->addExtensionTable( 'openbadges_class', __DIR__ .
+                                 '/OpenBadgesClass.sql', true );
+        return true;
+}
 
 /* Configuration */
 
