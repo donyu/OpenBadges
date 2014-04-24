@@ -7,3 +7,10 @@
  */
 
 $specialPageAliases = array();
+
+/** English (English) */
+$specialPageAliases['en'] = array(
+	'BadgeCreate' => array( 'BadgeCreate' ),
+	'BadgeIssue' => array( 'BadgeIssue' ),
+	'BadgeView' => array( 'BadgeView' ),
+);
