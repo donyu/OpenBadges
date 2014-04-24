@@ -23,28 +23,25 @@ $wgExtensionCredits['other'][] = array(
 
 /* Setup */
 
-$dir = __DIR__;
+// Files
+$wgAutoloadClasses['SpecialBadgeIssue'] = __DIR__ . '/SpecialBadgeIssue.php';
+$wgAutoloadClasses['SpecialBadgeCreate'] = __DIR__ . '/SpecialBadgeCreate.php';
+$wgAutoloadClasses['SpecialBadgeView'] = __DIR__ . '/SpecialBadgeView.php';
+$wgExtensionMessagesFiles['OpenBadges'] = __DIR__ . '/OpenBadges.i18n.php';
+$wgExtensionMessagesFiles['OpenBadgesAlias'] = __DIR__ . '/OpenBadges.i18n.alias.php';
 
-// Register files
-$wgAutoloadClasses['BadgeManager'] = $dir . '/manage/BadgeManager.php';
-$wgAutoloadClasses['AddBadge'] = $dir . '/manage/AddBadge.php';
-$wgAutoloadClasses['ViewBadges'] = $dir . '/manage/ViewBadges.php';
-$wgExtensionMessagesFiles['OpenBadges'] = $dir . '/OpenBadges.i18n.php';
-$wgExtensionMessagesFiles['OpenBadgesAlias'] = $dir . '/OpenBadges.i18n.alias.php';
-
-// Register special pages
-$wgSpecialPages['BadgeManager'] = 'BadgeManager';
-$wgSpecialPageGroups['BadgeManager'] = 'other';
-$wgSpecialPages['AddBadge'] = 'AddBadge';
-$wgSpecialPageGroups['AddBadge'] = 'other';
-$wgSpecialPages['ViewBadges'] = 'ViewBadges';
-$wgSpecialPageGroups['ViewBadges'] = 'other';
+// Special pages
+$wgSpecialPages['BadgeIssue'] = 'SpecialBadgeIssue';
+$wgSpecialPageGroups['BadgeIssue'] = 'other';
+$wgSpecialPages['BadgeCreate'] = 'SpecialBadgeCreate';
+$wgSpecialPageGroups['BadgeCreate'] = 'other';
+$wgSpecialPages['BadgeView']= 'SpecialBadgeView';
+$wgSpecialPageGroups['BadgeView'] = 'other';
 
 
-// Register hooks
+// Hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'createTable';
 
-// Function to hook up our tables
 function createTable( DatabaseUpdater $dbU ) {
         $dbU->addExtensionTable( 'openbadges_assertion', __DIR__ .
                                  '/OpenBadgesAssertion.sql', true );

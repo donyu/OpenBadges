@@ -6,9 +6,9 @@
  * @ingroup Extensions
  */
 
-class BadgeManager extends SpecialPage {
+class SpecialBadgeIssue extends SpecialPage {
 	public function __construct() {
-		parent::__construct( 'BadgeManager' );
+		parent::__construct( 'BadgeIssue' );
 	}
 
 	/**
@@ -20,24 +20,26 @@ class BadgeManager extends SpecialPage {
 		$this->setHeaders();
 		$this->outputHeader();
 		$formFields = array(
-				'userfield' => array('label-message' => 'ob-badgemanager-user',
+			'userfield' => array(
+				'label-message' => 'ob-issue-user',
 				'class' => 'HTMLTextField',
 				'required' => true,
-				),
-				'badgefield' => array('label-message' => 'ob-badgemanager-type',
+			),
+			'badgefield' => array(
+			    'label-message' => 'ob-issue-type',
 				'class' => 'HTMLTextField',
 				'required' => true,
-				),
-				);
+			),
+		);
 		$htmlForm = new HTMLForm($formFields, $this->getContext() );
-		$htmlForm->setSubmitText(wfMessage('ob-badgemanager-submit'));
-		$htmlForm->setSubmitCallback( array( 'BadgeManager', 'addBadge'));
+		$htmlForm->setSubmitText(wfMessage('ob-issue-submit'));
+		$htmlForm->setSubmitCallback( array( 'BadgeIssue', 'issueBadge'));
 		$htmlForm->show();
 	}
 
-        # TODO: Load Database table, then:
-        # TODO: Add DB logic to give a new badge to a new user.
-	static function addBadge( $formInput ) {
+		# TODO: Load Database table, then:
+		# TODO: Add DB logic to give a new badge to a new user.
+	static function issueBadge( $formInput ) {
 		#return false to redisplay the form, not sure how to 'refresh' the page
 		return false;
 	}

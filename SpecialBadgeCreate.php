@@ -6,9 +6,9 @@
  * @ingroup Extensions
  */
 
-class AddBadge extends SpecialPage {
+class SpecialBadgeCreate extends SpecialPage {
 	public function __construct() {
-		parent::__construct( 'AddBadge' );
+		parent::__construct( 'BadgeCreate' );
 	}
 
 	/**
@@ -20,25 +20,25 @@ class AddBadge extends SpecialPage {
 		$this->setHeaders();
 		$this->outputHeader();
 		$formFields = array(
-				'userfield' => array('label-message' => 'ob-addbadge-name',
+				'userfield' => array('label-message' => 'ob-create-name',
 						'class' => 'HTMLTextField',
 						'required' => true,
 						),
-				'badgefield' => array('label-message' => 'ob-addbadge-info',
+				'badgefield' => array('label-message' => 'ob-create-info',
 						'class' => 'HTMLTextField',
 						'required' => true,
 						),
 				);
 		$htmlForm = new HTMLForm($formFields, $this->getContext() );
-		$htmlForm->setSubmitText(wfMessage('ob-addbadge-submit'));
-		$htmlForm->setSubmitCallback( array( 'AddBadge', 'addBadgeType'));
+		$htmlForm->setSubmitText(wfMessage( 'ob-create-submit' ));
+		$htmlForm->setSubmitCallback( array( 'BadgeCreate', 'createBadge'));
 		$htmlForm->show();
 	}
 
-        # TODO: Load Database table, then:
-        # TODO: Add DB logic to add a new badge to the database
-  static function addBadgeType( $formInput ) {
+		# TODO: Load Database table, then:
+		# TODO: Add DB logic to add a new badge to the database
+	static function createBadge( $formInput ) {
 		#return false to redisplay the form, not sure how to 'refresh' the page
-    return false;
-  }
+		return false;
+	}
 }
