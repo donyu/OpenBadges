@@ -20,25 +20,41 @@ class SpecialBadgeCreate extends SpecialPage {
 		$this->setHeaders();
 		$this->outputHeader();
 		$formFields = array(
-				'userfield' => array('label-message' => 'ob-create-name',
+				'Name' => array('label-message' => 'ob-create-badge-name',
+						'class' => 'HTMLTextField',
+						'required' => true,
+						'validation-callback' => array('SpecialBadgeCreate', 'validateBadgeName'),
+						),
+				'Image' => array('label-message' => 'ob-create-badge-image',
 						'class' => 'HTMLTextField',
 						'required' => true,
 						),
-				'badgefield' => array('label-message' => 'ob-create-info',
-						'class' => 'HTMLTextField',
+				'Description' => array('label-message' => 'ob-create-badge-description',
+						'class' => 'HTMLTextAreaField',
 						'required' => true,
+						'rows' => 5,
+						),
+				'Criteria' => array('label-message' => 'ob-create-badge-criteria',
+						'class' => 'HTMLTextAreaField',
+						'required' => true,
+						'rows' => 5,
 						),
 				);
 		$htmlForm = new HTMLForm($formFields, $this->getContext() );
-		$htmlForm->setSubmitText(wfMessage( 'ob-create-submit' ));
+		$htmlForm->setSubmitText(wfMessage( 'ob-create-badge-submit' ));
 		$htmlForm->setSubmitCallback( array( 'BadgeCreate', 'createBadge'));
 		$htmlForm->show();
 	}
 
-		# TODO: Load Database table, then:
-		# TODO: Add DB logic to add a new badge to the database
-	static function createBadge( $formInput ) {
-		#return false to redisplay the form, not sure how to 'refresh' the page
+	static function createBadge( $data ) {
+		$badgeName = $data['Name'];
+		$badgeImage = $data['Image'];
+		$badgeDescription = $data['Description'];
+		$badgeCriteria = $data['Criteria'];
 		return false;
 	}
+
+	static function validateBadgeName()
+
+
 }
