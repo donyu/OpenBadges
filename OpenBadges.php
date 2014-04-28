@@ -43,10 +43,8 @@ $wgSpecialPageGroups['BadgeView'] = 'other';
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'createTable';
 
 function createTable( DatabaseUpdater $dbU ) {
-        $dbU->addExtensionTable( 'openbadges_assertion', __DIR__ .
-                                 '/OpenBadgesAssertion.sql', true );
-        $dbU->addExtensionTable( 'openbadges_class', __DIR__ .
-                                 '/OpenBadgesClass.sql', true );
+        $dbU->addExtensionTable( 'openbadges_assertion', __DIR__ . '/OpenBadgesAssertion.sql', true );
+        $dbU->addExtensionTable( 'openbadges_class', __DIR__ . '/OpenBadgesClass.sql', true );
         return true;
 }
 
