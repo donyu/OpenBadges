@@ -16,9 +16,9 @@ CREATE TABLE /*_*/openbadges_assertion (
   obl_badge_id int NOT NULL REFERENCES openbadges_class(obl_badge_id),
 
   -- Image of the badge
-  obl_badge_title varchar(255) REFERENCES page(page_title),
+  obl_badge_image varchar(255) REFERENCES page(page_title),
 
-  -- Criteria for receiving the badge, if any
+  -- Evidence for receiving the badge, if any
   obl_badge_evidence varchar(255) NOT NULL,
 
   -- Expiration of the badge, if any
