@@ -58,16 +58,14 @@ class SpecialBadgeIssue extends FormSpecialPage {
 			return $status;
 		}
 
-
 		// Inserts the new assertion into the database
 		return wfGetDB( DB_MASTER )->insert(
 			'openbadges_assertion',
-			// TODO: correct insert fields for assertion
-			// obl_timestamp => current time function call
-			// obl_receiver => $status->value['Name']
-			// obl_badge_id => $status->value['BadgeId']
-			// obl_badge_title => $status->value['Image']
 			array(
+				'obl_timestamp' => time(),
+				'obl_receiver' => $status->value['Receiver'],
+				'obl_badge_id' => $status->value['BadgeId'],
+				'obl_badge_image' => $status->value['Image'],
 			),
 			__METHOD__
 		);
@@ -81,7 +79,6 @@ class SpecialBadgeIssue extends FormSpecialPage {
 	 * @return Status
 	 */
 	function validateFormFields( array $data ) {
-		$status = Status::newGood();
 		$fields = '*';
 
 		$dbr = wfGetDB( DB_MASTER );
@@ -98,16 +95,22 @@ class SpecialBadgeIssue extends FormSpecialPage {
 		);
 
 		if ( $userRes === false || $badgeRes === false ) {
-			$status->fatal('ob-db-error');
+			$status = Status::newFatal( 'ob-db-error' );
 		}
+		// Issue only if there's one matching user and badge
 		else if ( $userRes->numRows() == 1 && $badgeRes->numRows() == 1 ) {
 			$assertionRes = array(
-				'Receiver' => $userRes->user_name,
+				'Receiver' => $userRes->user_id,
 				'BadgeId' => $badgeRes->obl_badge_id,
 				'Image' => $badgeRes->obl_badge_image,
 			);
+			$status = Status::newGood( $assertionRes );
 		}
+		// Error handling
 		else {
+			$status = Status::newGood();
+
+			// Possible database errors
 			if ( $userRes->numRows() == 0) {
 				$status->fatal( 'ob-db-user-not-found' );
 			}
@@ -116,6 +119,11 @@ class SpecialBadgeIssue extends FormSpecialPage {
 			}
 			if ( $badgeRes->numRows() == 0 ) {
 				$status->fatal( 'ob-db-badge-not-found' );
+			}
+
+			// Error case was not caught, error unknown
+			if ($status->isOK()) {
+				$status->fatal( 'ob-db-unknown-error' );
 			}
 		}
 

@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS /*_*/openbadges_class (
   -- Description of the badge
   obl_description blob NOT NULL,
 
-  -- Image of the badge
-  obl_badge_image blob NOT NULL,
+  -- Image of the badge. Assumed to be a URL for now.
+  obl_badge_image varchar(255) NOT NULL,
 
   -- Criteria for earning the badge; might be URL
   obl_criteria varchar(255) NOT NULL,
@@ -22,7 +22,10 @@ CREATE TABLE IF NOT EXISTS /*_*/openbadges_class (
   obl_issuer int NOT NULL,
 
   -- List of tags that describe the achievement
-  obl_tags blob NOT NULL
+  obl_tags blob NOT NULL,
+
+  -- Badge name is unique. Make this the primary key?
+  UNIQUE(obl_name)
 ) /*$wgDBTableOptions*/;
 
 CREATE INDEX /*i*/obl_name ON /*_*/openbadges_class (obl_name);

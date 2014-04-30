@@ -28,6 +28,7 @@ $messages['en'] = array(
 	'ob-db-user-not-found' => 'User doesn\'t exist',
 	'ob-db-multiple-users' => 'Multiple users exist',
 	'ob-db-badge-not-found' => 'Badge doesn\'t exist',
+	'ob-db-unknown-error' => 'Unknown database error',
 	'ob-issue-success' => 'Badge issued successfully',
 );
 
@@ -51,5 +52,6 @@ $messages['qqq'] = array(
 	'ob-db-user-not-found' => 'Error message if user does not exist',
 	'ob-db-multiple-users' => 'Error message if multiple users exist',
 	'ob-db-badge-not-found' => 'Error message if badge does not exist',
+	'ob-db-unknown-error' => 'Error message for unknown database error',
 	'ob-issue-success' => 'Success message for badge issue',
 );
