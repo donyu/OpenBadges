@@ -7,7 +7,7 @@
  */
 
 class SpecialBadgeCreate extends SpecialPage {
-	
+
 	public function __construct() {
 		parent::__construct( 'BadgeCreate' );
 	}
@@ -21,29 +21,33 @@ class SpecialBadgeCreate extends SpecialPage {
 		$this->setHeaders();
 		$this->outputHeader();
 		$formFields = array(
-				'Name' => array('label-message' => 'ob-create-badge-name',
-						'class' => 'HTMLTextField',
-						'required' => true,
-						'validation-callback' => array('SpecialBadgeCreate', 'validateBadgeName'),
-						),
-				'Image' => array('label-message' => 'ob-create-badge-image',
-						'class' => 'HTMLTextField',
-						'required' => true,
-						),
-				'Description' => array('label-message' => 'ob-create-badge-description',
-						'class' => 'HTMLTextAreaField',
-						'required' => true,
-						'rows' => 5,
-						),
-				'Criteria' => array('label-message' => 'ob-create-badge-criteria',
-						'class' => 'HTMLTextAreaField',
-						'required' => true,
-						'rows' => 5,
-						),
-				);
-		$htmlForm = new HTMLForm($formFields, $this->getContext());
+			'Name' => array(
+				'label-message' => 'ob-create-badge-name',
+				'class' => 'HTMLTextField',
+				'required' => true,
+				'validation-callback' => array('SpecialBadgeCreate', 'validateBadgeName'),
+			),
+			'Image' => array(
+				'label-message' => 'ob-create-badge-image',
+				'class' => 'HTMLTextField',
+				'required' => true,
+			),
+			'Description' => array(
+				'label-message' => 'ob-create-badge-description',
+				'class' => 'HTMLTextAreaField',
+				'required' => true,
+				'rows' => 5,
+			),
+			'Criteria' => array(
+				'label-message' => 'ob-create-badge-criteria',
+				'class' => 'HTMLTextAreaField',
+				'required' => true,
+				'rows' => 5,
+			),
+		);
+		$htmlForm = new HTMLForm( $formFields, $this->getContext() );
 		$htmlForm->setSubmitText(wfMessage( 'ob-create-badge-submit' ));
-		$htmlForm->setSubmitCallback( array( 'BadgeCreate', 'createBadge'));
+		$htmlForm->setSubmitCallback( array( 'SpecialBadgeCreate', 'createBadge' ) );
 		$htmlForm->show();
 	}
 
@@ -73,6 +77,7 @@ class SpecialBadgeCreate extends SpecialPage {
 	static function validateBadgeName( $nameTextField, $data ) {
 		$dbr = wfGetDB( DB_SLAVE );
 		// TODO check for duplicate badge name here
+		return true;
 	}
 
 }
