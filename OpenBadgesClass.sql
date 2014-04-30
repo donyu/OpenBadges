@@ -27,5 +27,3 @@ CREATE TABLE IF NOT EXISTS /*_*/openbadges_class (
   -- Badge name is unique. Make this the primary key?
   UNIQUE(obl_name)
 ) /*$wgDBTableOptions*/;
-
-CREATE INDEX /*i*/obl_name ON /*_*/openbadges_class (obl_name);
