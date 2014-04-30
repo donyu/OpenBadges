@@ -59,7 +59,9 @@ class SpecialBadgeIssue extends FormSpecialPage {
 		}
 
 		// Inserts the new assertion into the database
-		return wfGetDB( DB_MASTER )->insert(
+		$dbw = wfGetDB( DB_MASTER );
+		$dbw->begin();
+		$result = $dbw->insert(
 			'openbadges_assertion',
 			array(
 				'obl_timestamp' => time(),
@@ -69,6 +71,8 @@ class SpecialBadgeIssue extends FormSpecialPage {
 			),
 			__METHOD__
 		);
+		$dbw->commit();
+		return $result;
 	}
 
 	/**

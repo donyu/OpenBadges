@@ -18,11 +18,8 @@ CREATE TABLE IF NOT EXISTS /*_*/openbadges_class (
   -- Criteria for earning the badge; might be URL
   obl_criteria varchar(255) NOT NULL,
 
-  -- Id of the issuer
-  obl_issuer int NOT NULL,
-
   -- List of tags that describe the achievement
-  obl_tags blob NOT NULL,
+  obl_tags blob,
 
   -- Badge name is unique. Make this the primary key?
   UNIQUE(obl_name)
