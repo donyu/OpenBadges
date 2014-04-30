@@ -26,7 +26,7 @@ class SpecialBadgeCreate extends SpecialPage {
 						'required' => true,
 						'validation-callback' => array('SpecialBadgeCreate', 'validateBadgeName'),
 						),
-				'Image File Url' => array('label-message' => 'ob-create-badge-image',
+				'Image' => array('label-message' => 'ob-create-badge-image',
 						'class' => 'HTMLTextField',
 						'required' => true,
 						),
