@@ -23,13 +23,6 @@ class SpecialBadgeIssue extends FormSpecialPage {
 	}
 
 	/**
-	 * @return bool
-	 */
-	function requiresWrite() {
-		return true;
-	}
-
-	/**
 	 * @return array form fields
 	 */
 	function getFormFields() {
@@ -86,27 +79,27 @@ class SpecialBadgeIssue extends FormSpecialPage {
 		$fields = '*';
 
 		$dbr = wfGetDB( DB_MASTER );
-		$userRes = $dbr->select(
+		$userRow = $dbr->selectRow(
 			'user',
 			$fields,
 			array( 'user_name' => $data['Name'] )
 		);
 
-		$badgeRes = $dbr->select(
+		$badgeRow = $dbr->selectRow(
 			'openbadges_class',
 			$fields,
 			array( 'obl_name' => $data['BadgeName'] )
 		);
 
-		if ( $userRes === false || $badgeRes === false ) {
+		if ( $userRow === false || $badgeRow === false ) {
 			$status = Status::newFatal( 'ob-db-error' );
 		}
 		// Issue only if there's one matching user and badge
-		else if ( $userRes->numRows() == 1 && $badgeRes->numRows() == 1 ) {
+		else if ( $userRow && $badgeRow ) {
 			$assertionRes = array(
-				'Receiver' => $userRes->user_id,
-				'BadgeId' => $badgeRes->obl_badge_id,
-				'Image' => $badgeRes->obl_badge_image,
+				'Receiver' => $userRow->user_id,
+				'BadgeId' => $badgeRow->obl_badge_id,
+				'Image' => $badgeRow->obl_badge_image,
 			);
 			$status = Status::newGood( $assertionRes );
 		}
@@ -115,13 +108,10 @@ class SpecialBadgeIssue extends FormSpecialPage {
 			$status = Status::newGood();
 
 			// Possible database errors
-			if ( $userRes->numRows() == 0) {
+			if ( !$userRow ) {
 				$status->fatal( 'ob-db-user-not-found' );
 			}
-			if ( $userRes->numRows() > 0 ) {
-				$status->fatal( 'ob-db-multiple-users' );
-			}
-			if ( $badgeRes->numRows() == 0 ) {
+			if ( !$badgeRow ) {
 				$status->fatal( 'ob-db-badge-not-found' );
 			}
 
@@ -135,8 +125,7 @@ class SpecialBadgeIssue extends FormSpecialPage {
 	}
 
 	function onSuccess() {
-		$this->output->addWikiMsg( 'ob-issue-success' );
+		$this->getOutput()->addWikiMsg( 'ob-issue-success' );
 	}
-
 
 }
