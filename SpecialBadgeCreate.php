@@ -9,7 +9,7 @@
 class SpecialBadgeCreate extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct( 'BadgeCreate' );
+		parent::__construct( 'BadgeCreate', 'createbadge' );
 	}
 
 	/**
@@ -19,7 +19,9 @@ class SpecialBadgeCreate extends SpecialPage {
 	 */
 	public function execute( $sub ) {
 		$this->setHeaders();
+		$this->checkPermissions();
 		$this->outputHeader();
+
 		$formFields = array(
 			'Name' => array(
 				'label-message' => 'ob-create-badge-name',

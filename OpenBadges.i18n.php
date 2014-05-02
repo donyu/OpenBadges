@@ -12,7 +12,10 @@ $messages = array();
 /** English
  */
 $messages['en'] = array(
-	'ob-desc' => 'Extension to implement Mozilla OpenBadges',
+	'ob-desc' => 'Mozilla Open Badges extension',
+	'action-createbadge' => 'Create Badge',
+	'action-viewbadge' => 'View Badges',
+	'action-issuebadge' => 'Issue Badge',
 	'badgecreate' => 'Create a Badge',
 	'ob-create-badge-submit' => 'Add badge to Database',
 	'ob-create-badge-name' => 'Badge Name',
@@ -38,8 +41,11 @@ $messages['en'] = array(
  * @author chococookies
  */
 $messages['qqq'] = array(
-	'ob-desc' => 'Short description of the openbadges extension (implements Mozilla OpenBadges',
-	'badgecreate' => 'Describe that this page to add new types of badges to the database.',
+	'ob-desc' => 'Short description of the openbadges extension (implements Mozilla OpenBadges)',
+	'action-createbadge' => 'Description of createbadge permission',
+	'action-viewbadge' => 'Description of viewbadge permission',
+	'action-issuebadge' => 'Description of issuebadge permission',
+	'badgecreate' => 'Describe that this page to add new types of badges to the database',
 	'ob-create-submit' => 'Form submit button, adds badge to database',
 	'ob-create-name' => 'Form field, name designation for a new badge',
 	'ob-create-info' => 'Form field, badge information for new badge added',

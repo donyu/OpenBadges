@@ -15,6 +15,8 @@ $wgExtensionCredits['other'][] = array(
 	'name' => 'OpenBadges',
 	'author' => array(
 		'chococookies',
+		'Don Yu',
+		'Stephen Zhou',
 	),
 	'version'  => '0.1',
 	'url' => 'https://www.mediawiki.org/wiki/OpenBadges',
@@ -37,6 +39,17 @@ $wgSpecialPages['BadgeCreate'] = 'SpecialBadgeCreate';
 $wgSpecialPageGroups['BadgeCreate'] = 'other';
 $wgSpecialPages['BadgeView']= 'SpecialBadgeView';
 $wgSpecialPageGroups['BadgeView'] = 'other';
+
+// Permissions
+// TODO: Add custom create and issue groups
+$wgGroupPermissions['sysop']['issuebadge'] = true;
+$wgGroupPermissions['sysop']['createbadge'] = true;
+$wgGroupPermissions['user']['viewbadge'] = true;
+$wgAvailableRights[] = array(
+	'issuebadge',
+	'createbadge',
+	'viewbadge'
+);
 
 // Register hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'createTable';
@@ -99,7 +112,7 @@ function createTable( DatabaseUpdater $dbU ) {
 // function efAddOpenBadgesModule( OutputPage &$out ) {
 
 // 	// Only add the modules if user is logged in
-	
+
 
 // 	$context = RequestContext::getMain();
 // 	efPersonaAddScripts( $context->getUser(), $out );
