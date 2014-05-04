@@ -10,22 +10,22 @@ class SpecialBadgeIssue extends FormSpecialPage {
 	/** @var LoginForm **/
 	private $mLoginForm;
 
-	function __construct() {
-		parent::__construct( 'BadgeIssue' );
+	public function __construct() {
+		parent::__construct( 'BadgeIssue', 'issuebadge' );
 		$this->mLoginForm = new LoginForm();
 	}
 
 	/**
 	 * @return string
 	 */
-	function getMessagePrefix() {
+	public function getMessagePrefix() {
 		return 'badge-issue';
 	}
 
 	/**
 	 * @return array form fields
 	 */
-	function getFormFields() {
+	public function getFormFields() {
 		return array(
 			'Name' => array(
 				'type' => 'text',
@@ -44,7 +44,7 @@ class SpecialBadgeIssue extends FormSpecialPage {
 	 * @param array $data
 	 * @return Status|bool
 	 */
-	function onSubmit( array $data ) {
+	public function onSubmit( array $data ) {
 		$status = self::validateFormFields( $data );
 
 		if ( !$status->isOK() ) {
@@ -75,7 +75,7 @@ class SpecialBadgeIssue extends FormSpecialPage {
 	 *
 	 * @return Status
 	 */
-	function validateFormFields( array $data ) {
+	public function validateFormFields( array $data ) {
 		$fields = '*';
 
 		$dbr = wfGetDB( DB_MASTER );
@@ -124,7 +124,7 @@ class SpecialBadgeIssue extends FormSpecialPage {
 		return $status;
 	}
 
-	function onSuccess() {
+	public function onSuccess() {
 		$this->getOutput()->addWikiMsg( 'ob-issue-success' );
 	}
 

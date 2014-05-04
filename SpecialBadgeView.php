@@ -8,7 +8,7 @@
 
 class SpecialBadgeView extends SpecialPage {
 	public function __construct() {
-		parent::__construct( 'BadgeView' );
+		parent::__construct( 'BadgeView', 'viewbadge' );
 	}
 
 	/**
@@ -18,10 +18,17 @@ class SpecialBadgeView extends SpecialPage {
 	 */
 	public function execute( $sub ) {
 		$this->setHeaders();
+		$this->checkPermissions();
 		$this->outputHeader();
-		$html = $this->getOutput();
 
-		$userId = $this->getUser()->getId();
+		$html = $this->getOutput();
+		$html->addHtml( $this->getBadgeHtml() );
+	}
+
+	public function getBadgeHtml() {
+		global $wgUser;
+
+		$userId = $wgUser->getId();
 
 		$dbr = wfGetDB( DB_SLAVE );
 		$badgeRes = $dbr->select(
@@ -30,23 +37,26 @@ class SpecialBadgeView extends SpecialPage {
 			'obl_receiver = ' . $userId,
 			__METHOD__,
 			array(),
-			array( 'openbadges_class' => array( 'INNER JOIN', array (
-				'openbadges_assertion.obl_badge_id=openbadges_class.obl_badge_id' ) ) )
+			array(
+				'openbadges_class' => array(
+					'INNER JOIN', array (
+						'openbadges_assertion.obl_badge_id=openbadges_class.obl_badge_id' ) ) )
 		);
 
-		$htmlList = '<ul>';
+		$badgeLi = '';
 		foreach ( $badgeRes as $row ) {
-			$htmlList .= "<li><p>$row->obl_name</p><img src=\"$row->obl_badge_image\" /></li>";
-			$htmlList .= '<button>Issue badge to backpack</button>';
+			$badgeName = Html::element( 'p', array(), $row->obl_name );
+			$badgeImage = Html::rawElement(
+				'img',
+				array( 'src' => $row->obl_badge_image, 'height' => 160, )
+			);
+			$addButton = Html::rawElement( 'button', array(), 'Add badge to Backpack');
+			$badgeLi .= Html::rawElement( 'li', array(), $badgeName . $badgeImage . $addButton );
 		}
-		$htmlList .= '</ul>';
-		$html->addHTML( $htmlList );
+
+		$badgeUl = Html::rawElement( 'ul', array(), $badgeLi );
+
+		return $badgeUl;
 	}
 
-    # TODO: Load Database table, then:
-    # TODO: Display all the badges a user has.
-	static function viewBadges( $formInput ) {
-		#return false to redisplay the form, not sure how to 'refresh' the page
-		return false;
-	}
 }
