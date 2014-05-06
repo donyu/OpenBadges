@@ -29,8 +29,12 @@ $wgExtensionCredits['other'][] = array(
 $wgAutoloadClasses['SpecialBadgeIssue'] = __DIR__ . '/SpecialBadgeIssue.php';
 $wgAutoloadClasses['SpecialBadgeCreate'] = __DIR__ . '/SpecialBadgeCreate.php';
 $wgAutoloadClasses['SpecialBadgeView'] = __DIR__ . '/SpecialBadgeView.php';
+$wgAutoloadClasses['ApiOpenBadges'] = __DIR__ . '/ApiOpenBadges.php';
 $wgExtensionMessagesFiles['OpenBadges'] = __DIR__ . '/OpenBadges.i18n.php';
 $wgExtensionMessagesFiles['OpenBadgesAlias'] = __DIR__ . '/OpenBadges.i18n.alias.php';
+
+// Map module name to class name
+$wgAPIModules['openbadges'] = 'ApiOpenBadges';
 
 // Special pages
 $wgSpecialPages['BadgeIssue'] = 'SpecialBadgeIssue';
