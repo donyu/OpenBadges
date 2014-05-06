@@ -3,14 +3,14 @@
 class ApiOpenBadges extends ApiBase {
 
 	public function getDescription() {
-        return 'Get hosted assertion for an OpenBadge.';
-    }
+		return 'Get hosted assertion for an OpenBadge.';
+	}
 
-    public function getVersion() {
-    	return __CLASS__ . ': $Id$';
-    }
+	public function getVersion() {
+		return __CLASS__ . ': $Id$';
+	}
 
-    public function isReadMode() {
+	public function isReadMode() {
 		return true;
 	}
 
@@ -43,7 +43,7 @@ class ApiOpenBadges extends ApiBase {
 		$res = $dbr->select(
 			array( 'openbadges_assertion', 'user' ),
 			array( 'obl_id', 'obl_timestamp', 'user_email' ),
-			array( 
+			array(
 				'obl_badge_id = ' . $badgeID,
 				'obl_receiver = ' . $receiverID,
 			),
@@ -52,8 +52,8 @@ class ApiOpenBadges extends ApiBase {
 			array(
 				'user' => array(
 					'INNER JOIN', array (
-						'openbadges_assertion.obl_receiver=user.user_id' 
-					) 
+						'openbadges_assertion.obl_receiver=user.user_id'
+					)
 				)
 			)
 		);
@@ -76,7 +76,7 @@ class ApiOpenBadges extends ApiBase {
 		$this->getResult()->addValue( null, 'badge', 'unknown' );
 
 		// set how the badge will be verified
-		$this->getResult()->addValue( null, 'verify', array( 
+		$this->getResult()->addValue( null, 'verify', array(
 				'type' => 'hosted',
 				'url' => 'unknown',
 			)
