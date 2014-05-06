@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"ob-desc": "Mozilla Open Badges extension",
+	"action-createbadge": "Create Badge",
+	"action-viewbadge": "View Badges",
+	"action-issuebadge": "Issue Badge",
+	"badgecreate": "Create a Badge",
+	"ob-create-badge-submit": "Add badge to Database",
+	"ob-create-badge-name": "Badge Name",
+	"ob-create-badge-description": "Badge Description",
+	"ob-create-badge-image": "Badge Image Upload",
+	"ob-create-badge-criteria": "Badge Criteria for Earning",
+	"badgeview": "My Badges",
+	"ob-view-submit": "Display badges",
+	"ob-view-user": "Username",
+	"badgeissue": "Issue a Badge",
+	"badge-issue-legend": "Issue a badge to a user",
+	"ob-issue-submit": "Assign Badge",
+	"ob-issue-user": "Username",
+	"ob-issue-type": "Badge",
+	"ob-db-user-not-found": "User doesn't exist",
+	"ob-db-multiple-users": "Multiple users exist",
+	"ob-db-badge-not-found": "Badge doesn't exist",
+	"ob-db-unknown-error": "Unknown database error",
+	"ob-issue-success": "Badge issued successfully"
+}
