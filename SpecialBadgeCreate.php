@@ -25,25 +25,27 @@ class SpecialBadgeCreate extends SpecialPage {
 		$formFields = array(
 			'Name' => array(
 				'label-message' => 'ob-create-badge-name',
-				'class' => 'HTMLTextField',
+				'type' => 'text',
 				'required' => true,
-				'validation-callback' => array('SpecialBadgeCreate', 'validateBadgeName'),
+				'validation-callback' => array( 'SpecialBadgeCreate', 'validateBadgeName' ),
 			),
 			'Image' => array(
 				'label-message' => 'ob-create-badge-image',
-				'class' => 'HTMLTextField',
+				'type' => 'text',
 				'required' => true,
 			),
 			'Description' => array(
 				'label-message' => 'ob-create-badge-description',
-				'class' => 'HTMLTextAreaField',
+				'type' => 'textarea',
 				'required' => true,
+				'cols' => 30,
 				'rows' => 5,
 			),
 			'Criteria' => array(
 				'label-message' => 'ob-create-badge-criteria',
-				'class' => 'HTMLTextAreaField',
+				'type' => 'textarea',
 				'required' => true,
+				'cols' => 30,
 				'rows' => 5,
 			),
 		);
