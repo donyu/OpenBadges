@@ -23,8 +23,6 @@ $wgExtensionCredits['other'][] = array(
 	'descriptionmsg' => 'ob-desc',
 );
 
-/* Setup */
-
 // Files
 $wgAutoloadClasses['SpecialBadgeIssue'] = __DIR__ . '/SpecialBadgeIssue.php';
 $wgAutoloadClasses['SpecialBadgeCreate'] = __DIR__ . '/SpecialBadgeCreate.php';
@@ -58,8 +56,6 @@ $wgAvailableRights[] = array(
 
 // Register hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'createTable';
-// $wgHooks['BeforePageDisplay'][] = 'efAddOpenBadgesModule';
-
 
 // Function to hook up our tables
 function createTable( DatabaseUpdater $dbU ) {
@@ -67,67 +63,3 @@ function createTable( DatabaseUpdater $dbU ) {
         $dbU->addExtensionTable( 'openbadges_class', __DIR__ . '/OpenBadgesClass.sql', true );
         return true;
 }
-
-// /**
-//  * Add the OpenBadges JS module and variables to the output page. Also make sure a session
-//  * is started and a login token is set.
-//  *
-//  * @param User $user Current user that is logged in
-//  * @param OutputPage $out Output page to add scripts to
-//  */
-// function efPersonaAddScripts( User $user, OutputPage $out ) {
-// 	global $wgVersion;
-
-// 	if ( !isset( $_SESSION ) ) {
-// 		wfSetupSession();
-// 	}
-// 	if ( !LoginForm::getLoginToken() ) {
-// 		LoginForm::setLoginToken();
-// 	}
-
-// 	// Persona requires that IE compatibility mode be disabled
-// 	// Add the meta tag here in case MediaWiki core doesn't do it
-// 	$out->addMeta( 'http:X-UA-Compatible', 'IE=Edge' );
-
-// 	if ( ResourceLoader::inDebugMode() ) {
-// 		$out->addHeadItem( 'openbadges',
-// 			Html::linkedScript( 'https://login.persona.org/include.orig.js' ) );
-// 	} else {
-// 		$out->addHeadItem( 'persona',
-// 			Html::linkedScript( 'https://login.persona.org/include.js' ) );
-// 	}
-
-// 	if ( version_compare( $wgVersion, '1.20', '<' ) ) {
-// 		$out->addModules( 'ext.persona.old' );
-// 	} else {
-// 		$out->addModules( 'ext.persona' );
-// 	}
-
-// 	$out->addJsConfigVars( 'wgPersonaUserEmail',
-// 		$user->isEmailConfirmed() ? $user->getEmail() : null );
-// }
-
-// /**
-//  * Add the OpenBadges module to the OutputPage
-//  *
-//  * @param OutputPage &$out
-//  *
-//  * @return bool true
-//  */
-// function efAddOpenBadgesModule( OutputPage &$out ) {
-
-// 	// Only add the modules if user is logged in
-
-
-// 	$context = RequestContext::getMain();
-// 	efPersonaAddScripts( $context->getUser(), $out );
-
-// 	$out->addHTML( Html::input(
-// 		'wpLoginToken',
-// 		LoginForm::getLoginToken(),
-// 		'hidden'
-// 	) );
-
-// 	return true;
-// }
-
