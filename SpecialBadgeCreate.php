@@ -25,6 +25,17 @@ class SpecialBadgeCreate extends SpecialPage {
 		$selectedSourceType = strtolower( $this->getRequest()->getText( 'wpSourceType', 'File' ) );
 
 		$formFields = array(
+			'ImageUrl' => array(
+				'label-message' => 'ob-create-badge-image-url',
+				'section' => 'ob-create-badge-image',
+				'type' => 'text',
+			),
+			'Or' => array(
+				'type' => 'info',
+				'section' => 'ob-create-badge-image',
+				'default' => 'or',
+				'raw' => true,
+			),
 			'Image' => array(
 				'class' => 'UploadSourceField',
 				'section' => 'ob-create-badge-image',
@@ -76,7 +87,14 @@ class SpecialBadgeCreate extends SpecialPage {
 			$this->msg( 'ob-create-badge-text' ) . '</div>' );
 		$htmlForm->setSubmitText(wfMessage( 'ob-create-badge-submit' ));
 		$htmlForm->setSubmitCallback( array( 'SpecialBadgeCreate', 'createBadge' ) );
-		$htmlForm->show();
+
+		if ( $htmlForm->show() ) {
+			$this->onSuccess();
+		}
+	}
+
+	public function onSuccess() {
+		$this->getOutput()->addWikiMsg( 'ob-create-success' );
 	}
 
 	/**
@@ -126,7 +144,12 @@ class SpecialBadgeCreate extends SpecialPage {
 
 	static function createBadge( $data ) {
 		$badgeName = $data['Name'];
-		$badgeImage = $data['Image'];
+		// TODO figure out how to upload the image for real
+		// until then hardcode the image url for badge image file upload
+		$badgeImage = $data['ImageUrl'];
+		if (!$badgeImage) {
+			$badgeImage = 'http://i.imgur.com/bY9N1EP.png';
+		}
 		$badgeDescription = $data['Description'];
 		$badgeCriteria = $data['Criteria'];
 

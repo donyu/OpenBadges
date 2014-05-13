@@ -13,6 +13,7 @@
 	"-ob-create-badge-information": "Badge information",
 	"ob-create-badge-description": "Badge description",
 	"-ob-create-badge-image": "Badge image upload",
+	"ob-create-badge-image-url": "Badge url",
 	"ob-create-badge-criteria": "Badge criteria",
 	"badgeview": "My badges",
 	"ob-view-submit": "Display badges",
@@ -26,5 +27,6 @@
 	"ob-db-multiple-users": "Multiple users exist",
 	"ob-db-badge-not-found": "Badge doesn't exist",
 	"ob-db-unknown-error": "Unknown database error",
+	"ob-create-success": "Badge created successfully",
 	"ob-issue-success": "Badge issued successfully"
 }
