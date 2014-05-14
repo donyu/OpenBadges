@@ -1,6 +1,6 @@
 <?php
 
-class ApiOpenBadgesClass extends ApiBase {
+class ApiOpenBadgesCriteria extends ApiBase {
 
 	public function getDescription() {
 		return 'Get information about a badge and what it means within OpenBadges.';
@@ -38,27 +38,13 @@ class ApiOpenBadgesClass extends ApiBase {
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select(
 			'openbadges_class',
-			array( 'obl_name', 'obl_description', 'obl_badge_image' ),
+			array( 'obl_criteria' ),
 			'obl_badge_id = ' . $badgeID,
 			__METHOD__,
 			array()
 		);
 
-		// get the unique identifier for this badge 
-		$this->getResult()->addValue( null, 'name',  $res->current()->obl_name );
-
-		// get the description for this badge
-		$this->getResult()->addValue( null, 'description', $res->current()->obl_description );
-
-		// add url for the image associated with badge
-		$this->getResult()->addValue( null, 'image', $res->current()->obl_badge_image );
-
 		// get the criteria for the badge class JSON
-		$this->getResult()->addValue( null, 'criteria', "$wgServer/api.php?action=openbadges-badge-criteria&obl_badge_id=$badgeID&format=json" );
-
-		// set the issuer which is us
-		$this->getResult()->addValue( null, 'issuer', 
-			"$wgServer/api.php?action=openbadges-issuer&format=json"
-		);
+		$this->getResult()->addValue( null, 'criteria', $res->current()->obl_criteria );
 	}
 }
