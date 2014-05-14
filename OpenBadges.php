@@ -86,6 +86,8 @@ function efAddOpenBadgesModule( OutputPage &$out ) {
 	$out->addModules( 'ext.openbadges' );
 	$out->addHeadItem( 'openbadges-jquery-ui-js',
 		Html::linkedScript( 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js' ) );
+	$out->addHeadItem( 'openbadges-issuer-api',
+		Html::linkedScript( 'https://backpack.openbadges.org/issuer.js' ) );
 	$out->addHeadItem( 'openbadges-jquery-ui-css',
 		Html::linkedStyle( 'https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css' ) );
 	return true;

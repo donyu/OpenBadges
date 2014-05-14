@@ -33,7 +33,7 @@ class SpecialBadgeView extends SpecialPage {
 		$dbr = wfGetDB( DB_SLAVE );
 		$badgeRes = $dbr->select(
 			array( 'openbadges_assertion', 'openbadges_class' ),
-			array( 'obl_name', 'openbadges_assertion.obl_badge_image' ),
+			array( 'openbadges_class.obl_badge_id', 'obl_name', 'openbadges_assertion.obl_badge_image' ),
 			'obl_receiver = ' . $userId,
 			__METHOD__,
 			array(),
@@ -50,7 +50,10 @@ class SpecialBadgeView extends SpecialPage {
 				'img',
 				array( 'src' => $row->obl_badge_image, 'height' => 160, )
 			);
-			$addButton = Html::rawElement( 'button', array( 'class' => 'badge-to-backpack-button' ), 'Add badge to Backpack');
+			$addButton = Html::rawElement( 'button', array( 
+				'class' => 'badge-to-backpack-button',
+				'id' => $row->obl_badge_id
+			), 'Add badge to Backpack');
 			$badgeLi .= Html::rawElement( 'li', array( 'class' => 'badge-li' ), $badgeName . $badgeImage . $addButton );
 		}
 
