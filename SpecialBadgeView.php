@@ -45,13 +45,13 @@ class SpecialBadgeView extends SpecialPage {
 
 		$badgeLi = '';
 		foreach ( $badgeRes as $row ) {
-			$badgeName = Html::element( 'p', array(), $row->obl_name );
+			$badgeName = Html::element( 'p', array( 'class' => 'badge-name' ), $row->obl_name );
 			$badgeImage = Html::rawElement(
 				'img',
 				array( 'src' => $row->obl_badge_image, 'height' => 160, )
 			);
-			$addButton = Html::rawElement( 'button', array(), 'Add badge to Backpack');
-			$badgeLi .= Html::rawElement( 'li', array(), $badgeName . $badgeImage . $addButton );
+			$addButton = Html::rawElement( 'button', array( 'class' => 'badge-to-backpack-button' ), 'Add badge to Backpack');
+			$badgeLi .= Html::rawElement( 'li', array( 'class' => 'badge-li' ), $badgeName . $badgeImage . $addButton );
 		}
 
 		$badgeUl = Html::rawElement( 'ul', array(), $badgeLi );
