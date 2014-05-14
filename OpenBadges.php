@@ -27,13 +27,15 @@ $wgExtensionCredits['other'][] = array(
 $wgAutoloadClasses['SpecialBadgeIssue'] = __DIR__ . '/SpecialBadgeIssue.php';
 $wgAutoloadClasses['SpecialBadgeCreate'] = __DIR__ . '/SpecialBadgeCreate.php';
 $wgAutoloadClasses['SpecialBadgeView'] = __DIR__ . '/SpecialBadgeView.php';
-$wgAutoloadClasses['ApiOpenBadges'] = __DIR__ . '/ApiOpenBadges.php';
+$wgAutoloadClasses['ApiOpenBadgesHost'] = __DIR__ . '/ApiOpenBadgesHost.php';
+$wgAutoloadClasses['ApiOpenBadgesInfo'] = __DIR__ . '/ApiOpenBadgesInfo.php';
 $wgMessagesDirs['OpenBadges'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['OpenBadges'] = __DIR__ . '/OpenBadges.i18n.php';
 $wgExtensionMessagesFiles['OpenBadgesAlias'] = __DIR__ . '/OpenBadges.i18n.alias.php';
 
 // Map module name to class name
-$wgAPIModules['openbadges'] = 'ApiOpenBadges';
+$wgAPIModules['openbadges-host'] = 'ApiOpenBadgesHost';
+$wgAPIModules['openbadges-info'] = 'ApiOpenBadgesInfo';
 
 // Special pages
 $wgSpecialPages['BadgeIssue'] = 'SpecialBadgeIssue';
@@ -55,6 +57,7 @@ $wgAvailableRights[] = array(
 );
 
 $wgResourceModules['ext.openbadges'] = array(
+	'scripts' => array( 'openbadges_hooks.js' ),
 	'styles' => array( 'openbadges.css' ),
 	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'OpenBadges',
@@ -81,5 +84,9 @@ function createTable( DatabaseUpdater $dbU ) {
 function efAddOpenBadgesModule( OutputPage &$out ) {
 
 	$out->addModules( 'ext.openbadges' );
+	$out->addHeadItem( 'openbadges-jquery-ui-js',
+		Html::linkedScript( 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js' ) );
+	$out->addHeadItem( 'openbadges-jquery-ui-css',
+		Html::linkedStyle( 'https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css' ) );
 	return true;
 }

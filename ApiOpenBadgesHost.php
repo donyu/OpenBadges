@@ -1,6 +1,6 @@
 <?php
 
-class ApiOpenBadges extends ApiBase {
+class ApiOpenBadgesHost extends ApiBase {
 
 	public function getDescription() {
 		return 'Get hosted assertion for an OpenBadge.';
