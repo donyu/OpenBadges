@@ -72,6 +72,7 @@ $wgResourceModules['ext.openbadges'] = array(
 // Register hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'createTable';
 $wgHooks['BeforePageDisplay'][] = 'efAddOpenBadgesModule';
+$wgHooks['SkinBuildSidebar'][] = 'efAddOpenBadgesSidebar';
 
 // Function to hook up our tables
 function createTable( DatabaseUpdater $dbU ) {
@@ -96,5 +97,39 @@ function efAddOpenBadgesModule( OutputPage &$out ) {
 		Html::linkedScript( 'https://backpack.openbadges.org/issuer.js' ) );
 	$out->addHeadItem( 'openbadges-jquery-ui-css',
 		Html::linkedStyle( 'https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css' ) );
+	return true;
+}
+
+function efAddOpenBadgesSidebar( $skin, &$bar ) {
+	global $wgUser;
+
+	// show openbadges options to logged in users
+	if ( $wgUser->isLoggedIn() ) {
+		if ( $wgUser->isAllowed( 'issuebadge' ) ) {
+			$bar['navigation'][] = 
+				array(
+					'text'   => wfMsg( 'badgeissue' ),
+					'href'   => SpecialPage::getTitleFor( 'BadgeIssue' )->getLocalURL(),
+					'id'     => 'openbadge-issue',
+					'active' => ''
+				);	
+		}
+		if ( $wgUser->isAllowed( 'createbadge' ) ) {
+			$bar['navigation'][] = 
+				array(
+					'text'   => wfMsg( 'badgecreate' ),
+					'href'   => SpecialPage::getTitleFor( 'BadgeCreate' )->getLocalURL(),
+					'id'     => 'openbadge-create',
+					'active' => ''
+				);	
+		}
+		$bar['navigation'][] = 
+			array(
+				'text'   => wfMsg( 'badgeview' ),
+				'href'   => SpecialPage::getTitleFor( 'BadgeView' )->getLocalURL(),
+				'id'     => 'openbadge-view',
+				'active' => ''
+			);
+	}
 	return true;
 }
