@@ -12,3 +12,8 @@
 .badge-to-backpack-button {
 	display: block;
 }
+
+.ui-corner-all {
+	font-family: 'Lucida Grande';
+	font-size: 11px;
+}
