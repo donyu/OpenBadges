@@ -18,7 +18,7 @@
 
 		$( '.badge-to-backpack-button' ).click( function( e ) {
 			console.log($(e.target));
-			var badgeHostUrl = window.location.origin + '/w/api.php?action=openbadges-host&obl_badge_id=' +
+			var badgeHostUrl = window.location.origin + '/api.php?action=openbadges-host&obl_badge_id=' +
 				$(e.target).context.id + '&obl_receiver=' + mw.user.getId() + '&format=json';
 			console.log(badgeHostUrl);
 			OpenBadges.issue( [ badgeHostUrl ], function( errors, successes ) { } );

@@ -58,7 +58,7 @@ class ApiOpenBadgesClass extends ApiBase {
 
 		// set the issuer which is us
 		$this->getResult()->addValue( null, 'issuer', 
-			"$wgServer/w/api.php?action=openbadges-issuer&format=json"
+			"$wgServer/api.php?action=openbadges-issuer&format=json"
 		);
 	}
 }

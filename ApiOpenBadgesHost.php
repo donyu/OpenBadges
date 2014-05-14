@@ -71,18 +71,18 @@ class ApiOpenBadgesHost extends ApiBase {
 		$this->getResult()->addValue( null, 'recipient', array(
 				'type' => 'email',
 				'hashed' => false,
-				'identify' => $res->current()->user_email,
+				'identity' => $res->current()->user_email,
 			)
 		);
 
 		// get the url for the badge class JSON
 		$this->getResult()->addValue( null, 'badge', 
-			"$wgServer/w/api.php?action=openbadges-badge-class&obl_badge_id=$badgeID&format=json" );
+			"$wgServer/api.php?action=openbadges-badge-class&obl_badge_id=$badgeID&format=json" );
 
 		// set how the badge will be verified
 		$this->getResult()->addValue( null, 'verify', array(
 				'type' => 'hosted',
-				'url' => "$wgServer/w/api.php?action=openbadges-host&obl_badge_id=$badgeID&obl_receiver=$receiverID&format=json",
+				'url' => "$wgServer/api.php?action=openbadges-host&obl_badge_id=$badgeID&obl_receiver=$receiverID&format=json",
 			)
 		);
 	}
