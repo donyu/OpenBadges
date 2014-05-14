@@ -54,12 +54,32 @@ $wgAvailableRights[] = array(
 	'viewbadge'
 );
 
+$wgResourceModules['ext.openbadges'] = array(
+	'styles' => array( 'openbadges.css' ),
+	'localBasePath' => __DIR__,
+	'remoteExtPath' => 'OpenBadges',
+);
+
 // Register hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'createTable';
+$wgHooks['BeforePageDisplay'][] = 'efAddOpenBadgesModule';
 
 // Function to hook up our tables
 function createTable( DatabaseUpdater $dbU ) {
         $dbU->addExtensionTable( 'openbadges_assertion', __DIR__ . '/OpenBadgesAssertion.sql', true );
         $dbU->addExtensionTable( 'openbadges_class', __DIR__ . '/OpenBadgesClass.sql', true );
         return true;
+}
+
+/**
+ * Add the Persona module to the OutputPage.
+ *
+ * @param OutputPage &$out
+ *
+ * @return bool true
+ */
+function efAddOpenBadgesModule( OutputPage &$out ) {
+
+	$out->addModules( 'ext.openbadges' );
+	return true;
 }
