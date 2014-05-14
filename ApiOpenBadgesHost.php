@@ -35,6 +35,8 @@ class ApiOpenBadgesHost extends ApiBase {
 	}
 
 	public function execute() {
+		global $wgServer;
+
 		$badgeID = $this->getMain()->getVal( 'obl_badge_id' );
 		$receiverID = $this->getMain()->getVal( 'obl_receiver' );
 
@@ -62,7 +64,8 @@ class ApiOpenBadgesHost extends ApiBase {
 		$this->getResult()->addValue( null, 'uid',  $res->current()->obl_id );
 
 		// get the date that the badge was issued on
-		$this->getResult()->addValue( null, 'issuedOn', $res->current()->obl_timestamp );
+		// $this->getResult()->addValue( null, 'issuedOn', $res->current()->obl_timestamp );
+		$this->getResult()->addValue( null, 'issuedOn', intval($res->current()->obl_timestamp) );
 
 		// add information about the recipient user
 		$this->getResult()->addValue( null, 'recipient', array(
@@ -73,12 +76,13 @@ class ApiOpenBadgesHost extends ApiBase {
 		);
 
 		// get the url for the badge class JSON
-		$this->getResult()->addValue( null, 'badge', 'unknown' );
+		$this->getResult()->addValue( null, 'badge', 
+			"$wgServer/w/api.php?action=openbadges-badge-class&obl_badge_id=$badgeID&format=json" );
 
 		// set how the badge will be verified
 		$this->getResult()->addValue( null, 'verify', array(
 				'type' => 'hosted',
-				'url' => 'unknown',
+				'url' => "$wgServer/w/api.php?action=openbadges-host&obl_badge_id=$badgeID&obl_receiver=$receiverID&format=json",
 			)
 		);
 	}
